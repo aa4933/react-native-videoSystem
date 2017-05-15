@@ -18,8 +18,6 @@ module.exports = {
     },
     cloudinary :{
         cloud_name: 'wulihh',
-        api_key: '712538933897591',
-        api_secret: 'lTGDYyoH8sL6CDnYk-rgsDPEhiM',
         base: 'http://res.cloudinary.com/wulihh',
         image: 'https://api.cloudinary.com/v1_1/wulihh/image/upload',
         video: 'https://api.cloudinary.com/v1_1/wulihh/video/upload',
