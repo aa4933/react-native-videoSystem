@@ -14,20 +14,22 @@ module.exports = {
     //上传信息
     qiniu:{
         upload :'http://up-z2.qiniu.com/',
-        show:'http://opthvbkv3.bkt.clouddn.com/',
+        show:'http://opthvb1kv3.bkt.clouddn.com/',
     },
     cloudinary :{
         cloud_name: 'wulihh',
-        base: 'http://res.cloudinary.com/wulihh',
-        image: 'https://api.cloudinary.com/v1_1/wulihh/image/upload',
-        video: 'https://api.cloudinary.com/v1_1/wulihh/video/upload',
-        audio: 'https://api.cloudinary.com/v1_1/wulihh/raw/upload',
+        api_key: '1',
+        api_secret: '1',
+        base: 'http://res.cloudinary.com/1',
+        image: 'https://api.cloudinary.com/v1_1/1/image/upload',
+        video: 'https://api.cloudinary.com/v1_1/w1/video/upload',
+        audio: 'https://api.cloudinary.com/v1_1/w1/raw/upload',
     },
     //api路由
     api :{
         //base :'http://rap.taobao.org/mockjs/16041/',
-        //base :'http://localhost:1234/',
-        base:'http://192.168.1.178:1234/',
+        base :'http://localhost:1234/',
+        //base:'http://192.168.31.165:1234/',
         creations:'api/creations',
         up:'api/up',
         video:'api/creations/video',

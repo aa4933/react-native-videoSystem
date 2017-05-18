@@ -14,13 +14,20 @@ import {
     AppRegistry,
     Navigator,
     AsyncStorage,
+    ActivityIndicator,
+    Dimensions,
+    View,
 } from 'react-native';
 
 import List from './app/list/index';
 import My from './app/my/index';
 import Login from './app/my/login';
+import Slider from './app/my/carousel';
 import More from './app/more/index';
 
+
+var width = Dimensions.get('window').width;
+var height = Dimensions.get('window').height;
 
 export default class VideoApp extends Component {
 
@@ -31,6 +38,8 @@ export default class VideoApp extends Component {
             selectedTab: 'More',
             logined: false,
             user: null,
+            booted: false,
+            entered:false,
         };
     };
 
@@ -40,12 +49,16 @@ export default class VideoApp extends Component {
     };
 
     _asyncAppStatus() {
-        AsyncStorage.getItem('user')
+        AsyncStorage.multiGet(['user','entered'])
             .then((data)=> {
+                var userData=data[0][1]
+                var entered=data[1][1]
                 var user;
-                var userState = {};
-                if (data) {
-                    user = JSON.parse(data);
+                var userState = {
+                    booted: true
+                };
+                if (userData) {
+                    user = JSON.parse(userData);
                 }
                 if (user && user.accessToken) {
                     userState.user = user;
@@ -53,6 +66,11 @@ export default class VideoApp extends Component {
                 } else {
                     userState.logined = false;
                 }
+
+                if (entered==='yes'){
+                    userState.entered=true
+                }
+
                 this.setState(userState);
             })
     };
@@ -82,10 +100,29 @@ export default class VideoApp extends Component {
             logined: false,
         });
     };
-
+    _enterSlide(){
+        this.setState({
+            entered:true
+        },()=>{
+            AsyncStorage.setItem('entered','yes');
+        })
+    };
 //总图
     render() {
-        var that=this;
+        var that = this;
+
+        if (!this.state.booted) {
+            return (
+                <View style={styles.bootPage}>
+                    <ActivityIndicator color="#ee735c"/>
+                </View>
+            )
+        }
+        if (!this.state.entered){
+            return (
+                <Slider enterSlide = {this._enterSlide.bind(that)}/>
+            )
+        }
         if (!this.state.logined) {
             return (<Login afterLogin={that._afterLogin.bind(that)}/>);
         }
@@ -175,6 +212,12 @@ const styles = StyleSheet.create({
         textAlign: 'center',
         color: '#333333',
         marginBottom: 5,
+    },
+    bootPage: {
+        width: width,
+        height: height,
+        backgroundColor:'#fff',
+        justifyContent:'center',
     },
 });
 AppRegistry.registerComponent('videoApp', () => VideoApp);
