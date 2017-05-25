@@ -1,5 +1,5 @@
 *.js linguist-language=react-native
 *.css linguist-language=react-native
 *.html linguist-language=react-native
-*.Makefile linguist-language=react-native
+*.c linguist-language=react-native
 
